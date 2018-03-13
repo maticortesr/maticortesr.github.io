@@ -3,39 +3,39 @@
   "name": "Matias Cortes",
   "short_name": "Matias Cortes",
   "description": "A Jekyll theme with JavaScript powers. “Best Theme by a Mile”. Combines the best of static sites and modern web apps. Open _config.yml to edit this text.",
-  "start_url": "/404.html/?utm_source=homescreen",
+  "start_url": "/maticortesr.github.io/?utm_source=homescreen",
   "theme_color": "#4fb1ba",
   "background_color": "#fff",
   "orientation": "portrait",
   "display": "standalone",
   "icons": [
     {
-      "src": "/404.html/assets/icons/icon@0,25x.png",
+      "src": "/maticortesr.github.io/assets/icons/icon@0,25x.png",
       "type": "image/png",
       "sizes": "48x48"
     },
     {
-      "src": "/404.html/assets/icons/icon@0,5x.png",
+      "src": "/maticortesr.github.io/assets/icons/icon@0,5x.png",
       "type": "image/png",
       "sizes": "96x96"
     },
     {
-      "src": "/404.html/assets/icons/icon@0,75x.png",
+      "src": "/maticortesr.github.io/assets/icons/icon@0,75x.png",
       "type": "image/png",
       "sizes": "144x144"
     },
     {
-      "src": "/404.html/assets/icons/icon.png",
+      "src": "/maticortesr.github.io/assets/icons/icon.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "/404.html/assets/icons/icon@2x.png",
+      "src": "/maticortesr.github.io/assets/icons/icon@2x.png",
       "type": "image/png",
       "sizes": "384x384"
     },
     {
-      "src": "/404.html/assets/icons/icon@3x.png",
+      "src": "/maticortesr.github.io/assets/icons/icon@3x.png",
       "type": "image/png",
       "sizes": "576x576"
     }
