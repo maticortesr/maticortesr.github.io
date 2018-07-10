@@ -35,7 +35,7 @@ figure.snip1208 * {
 }
 figure.snip1208 img {
   display: inline-block;
-  max-width: 100%;
+  min-width: 100%;
   vertical-align: top;
   -webkit-transform-origin: 50% 100%;
   transform-origin: 50% 100%;
