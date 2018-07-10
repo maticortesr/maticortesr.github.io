@@ -34,6 +34,7 @@ figure.snip1208 * {
   transition: all 0.2s ease;
 }
 figure.snip1208 img {
+  display: table;
   max-width: 100%;
   vertical-align: top;
   -webkit-transform-origin: 50% 100%;
