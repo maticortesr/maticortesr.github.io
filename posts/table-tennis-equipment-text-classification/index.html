@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="Matias Cortes">
+    <meta name="description" content="Matias Cortes&#39;s personal website">
+    <meta name="keywords" content="blog,developer,personal">
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Analytics on Table Tennis Equipment Part 1: Text Classification"/>
+<meta name="twitter:description" content="Table Tennis gear shopping can be a complex endeavor. When you get to the point of getting a custom racket, combining a blade &#43; 2 Rubbers gives you pretty high number of combinations. For example, a blade can be made of wood or wood&#43;carbon for the most part, with a variety of combinations in terms of ply (usually 5-7) and they are classified as Defensive, Offensive and All around, with many levels in between."/>
+
+    <meta property="og:title" content="Analytics on Table Tennis Equipment Part 1: Text Classification" />
+<meta property="og:description" content="Table Tennis gear shopping can be a complex endeavor. When you get to the point of getting a custom racket, combining a blade &#43; 2 Rubbers gives you pretty high number of combinations. For example, a blade can be made of wood or wood&#43;carbon for the most part, with a variety of combinations in terms of ply (usually 5-7) and they are classified as Defensive, Offensive and All around, with many levels in between." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.matiascortes.com/posts/table-tennis-equipment-text-classification/" />
+<meta property="article:published_time" content="2020-04-19T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-04-19T00:00:00+00:00" />
+
+
+    
+      <base href="https://www.matiascortes.com/posts/table-tennis-equipment-text-classification/">
+    
+    <title>
+  Analytics on Table Tennis Equipment Part 1: Text Classification · Matias Cortes
+</title>
+
+    
+      <link rel="canonical" href="https://www.matiascortes.com/posts/table-tennis-equipment-text-classification/">
+    
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather:300,700%7CSource+Code+Pro:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin="anonymous" />
+
+    
+      
+      
+      <link rel="stylesheet" href="https://www.matiascortes.com/css/coder.min.624134b411585efffadab6a91e7d0383f0d4e22ad49de3690eccbc96f528e670.css" integrity="sha256-YkE0tBFYXv/62rapHn0Dg/DU4irUneNpDsy8lvUo5nA=" crossorigin="anonymous" media="screen" />
+    
+
+    
+
+    
+
+    
+      <link rel="stylesheet" href="https://www.matiascortes.com/css/custom.css" />
+    
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="https://www.matiascortes.com/img/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="https://www.matiascortes.com/img/favicon-16x16.png" sizes="16x16">
+
+    <meta name="generator" content="Hugo 0.68.3" />
+  </head>
+
+  
+  
+  <body class="colorscheme-light">
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="https://www.matiascortes.com/">
+      Matias Cortes
+    </a>
+    
+    <input type="checkbox" id="menu-toggle" />
+    <label class="menu-button float-right" for="menu-toggle"><i class="fas fa-bars"></i></label>
+    <ul class="navigation-list">
+      
+        
+          <li class="navigation-item">
+            <a class="navigation-link" href="https://www.matiascortes.com/posts/">Blog</a>
+          </li>
+        
+          <li class="navigation-item">
+            <a class="navigation-link" href="https://www.matiascortes.com/portfolio/">Portfolio</a>
+          </li>
+        
+          <li class="navigation-item">
+            <a class="navigation-link" href="https://www.matiascortes.com/about/">About</a>
+          </li>
+        
+      
+      
+    </ul>
+    
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">Analytics on Table Tennis Equipment Part 1: Text Classification</h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fas fa-calendar"></i>
+              <time datetime='2020-04-19T00:00:00Z'>
+                April 19, 2020
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fas fa-clock"></i>
+              14-minute read
+            </span>
+          </div>
+          
+          
+        </div>
+      </header>
+
+      <div>
+        
+        <p>Table Tennis gear shopping can be a complex endeavor. When you get to the point of getting a custom racket, combining a blade + 2 Rubbers gives you pretty high number of combinations. For example, a blade can be made of wood or wood+carbon for the most part, with a variety of combinations in terms of ply (usually 5-7) and they are classified as Defensive, Offensive and All around, with many levels in between. On the rubber side, most advanced amateur players would use different rubbers on each side, looking for different characteristics on the forehand vs backhand. Then you have the  sheet&rsquo;s thickness, hardness, speed, spin and style (&ldquo;Chinese&rdquo; vs &ldquo;European&rdquo;), among other characteristics.</p>
+<p>No brand tells you &ldquo;hey is rubber is meant to be used on the forehand&rdquo;, because that&rsquo;s up to you, given your style. This can be overwhelming when you are looking to build your first custom combo, so given my passion for table tennis + data skills + coronavirus free time, I decided to shed some light on the very pressing problem of deciding what rubber to use on which side of a racket.</p>
+<p>For this I pulled rubber reviews from the fantastic site revspin.net, around 8500 in total. Not every review tells you whether they used/recommend the rubber for an specific side, so after some regex magic the dataset was reduced to about 3500 reviews. After this I manually labeled 500 of them with a &lsquo;bh&rsquo;, &lsquo;fh&rsquo; or &lsquo;both&rsquo; label to build an initial classifier, with the intention of using it to label the rest of the data and get some insights. Let&rsquo;s start with the code.</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">reviews = pd.read_csv(<span style="color:#0ff;font-weight:bold">&#34;bh_fh_rubber_dataset.csv&#34;</span>)
+</code></pre></div><div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">reviews = reviews[[<span style="color:#0ff;font-weight:bold">&#34;text&#34;</span>,<span style="color:#0ff;font-weight:bold">&#34;label&#34;</span>]]
+</code></pre></div><div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">reviews.groupby(by=<span style="color:#0ff;font-weight:bold">&#34;label&#34;</span>).count()/<span style="color:#fff;font-weight:bold">len</span>(reviews[reviews[<span style="color:#0ff;font-weight:bold">&#34;label&#34;</span>].isna()==False])
+</code></pre></div><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+<pre><code>.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}
+</code></pre>
+<p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>text</th>
+    </tr>
+    <tr>
+      <th>label</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>bh</th>
+      <td>0.521739</td>
+    </tr>
+    <tr>
+      <th>both</th>
+      <td>0.117202</td>
+    </tr>
+    <tr>
+      <th>fh</th>
+      <td>0.361059</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">reviews = reviews[(reviews[<span style="color:#0ff;font-weight:bold">&#34;label&#34;</span>].isna()==False) &amp; (reviews[<span style="color:#0ff;font-weight:bold">&#34;label&#34;</span>]!=<span style="color:#0ff;font-weight:bold">&#34;both&#34;</span>) ]
+</code></pre></div><p>After importing libraries and dataset, I proceed to exclude records with no label and records with the label &lsquo;both&rsquo; since I don&rsquo;t have enough labeled data yet to go the multiclass route. I&rsquo;ll focus only on bh/fh labels to build a binary classifier.</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#007f7f">#Converting to lowercase</span>
+reviews[<span style="color:#0ff;font-weight:bold">&#39;text&#39;</span>]=reviews[<span style="color:#0ff;font-weight:bold">&#39;text&#39;</span>].apply(<span style="color:#fff;font-weight:bold">lambda</span> x: x.lower())
+</code></pre></div><div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">reviews.groupby(by=<span style="color:#0ff;font-weight:bold">&#34;label&#34;</span>).count()/<span style="color:#fff;font-weight:bold">len</span>(reviews)
+</code></pre></div><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+<pre><code>.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}
+</code></pre>
+<p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>text</th>
+    </tr>
+    <tr>
+      <th>label</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>bh</th>
+      <td>0.591006</td>
+    </tr>
+    <tr>
+      <th>fh</th>
+      <td>0.408994</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<p>I&rsquo;ll consider the proportion above balanced-enough for the exercise, I&rsquo;ll consider labeling more fh examples if I want to further improve the classifier.</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">reviews.head()
+</code></pre></div><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+<pre><code>.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}
+</code></pre>
+<p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>text</th>
+      <th>label</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>this rubber is in my opinion not as slow as in...</td>
+      <td>bh</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>i use this in 1.5mm for my backhand and it per...</td>
+      <td>bh</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>i'm using the black  1.5mm 40ª version. the ru...</td>
+      <td>bh</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>giving a fair honest review. tested this rubbe...</td>
+      <td>fh</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>i guess i got lucky with my kangaroo sheets co...</td>
+      <td>bh</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<h3 id="preprocessing">Preprocessing</h3>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">mask_fh_bh={<span style="color:#0ff;font-weight:bold">&#39;</span><span style="color:#0ff;font-weight:bold">\\</span><span style="color:#0ff;font-weight:bold">bbh</span><span style="color:#0ff;font-weight:bold">\\</span><span style="color:#0ff;font-weight:bold">b&#39;</span>:<span style="color:#0ff;font-weight:bold">&#39;backhand&#39;</span>,
+             <span style="color:#0ff;font-weight:bold">&#39;</span><span style="color:#0ff;font-weight:bold">\\</span><span style="color:#0ff;font-weight:bold">b</span><span style="color:#0ff;font-weight:bold">\b</span><span style="color:#0ff;font-weight:bold">ack-hand</span><span style="color:#0ff;font-weight:bold">\\</span><span style="color:#0ff;font-weight:bold">b&#39;</span>:<span style="color:#0ff;font-weight:bold">&#39;backhand&#39;</span>,
+             <span style="color:#0ff;font-weight:bold">&#39;</span><span style="color:#0ff;font-weight:bold">\\</span><span style="color:#0ff;font-weight:bold">bfh</span><span style="color:#0ff;font-weight:bold">\\</span><span style="color:#0ff;font-weight:bold">b&#39;</span>:<span style="color:#0ff;font-weight:bold">&#39;forehand&#39;</span>,
+             <span style="color:#0ff;font-weight:bold">&#39;</span><span style="color:#0ff;font-weight:bold">\\</span><span style="color:#0ff;font-weight:bold">bfore-hand</span><span style="color:#0ff;font-weight:bold">\\</span><span style="color:#0ff;font-weight:bold">b&#39;</span>:<span style="color:#0ff;font-weight:bold">&#39;forehand&#39;</span>,
+            <span style="color:#0ff;font-weight:bold">&#39;back hand&#39;</span>: <span style="color:#0ff;font-weight:bold">&#39;backhand&#39;</span>,
+            <span style="color:#0ff;font-weight:bold">&#39;fore hand&#39;</span>:<span style="color:#0ff;font-weight:bold">&#39;forehand&#39;</span>            
+           }
+</code></pre></div><div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">reviews[<span style="color:#0ff;font-weight:bold">&#39;text&#39;</span>].replace(mask_fh_bh, regex=True,inplace=True)
+</code></pre></div><p>The above 2 cells replace shorts like bh or (bh) to &ldquo;backhand&rdquo; and same for forehand shorts.</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#007f7f"># Text cleaning and text feature utility functions</span>
+
+<span style="color:#fff;font-weight:bold">def</span> text_cleaner(string):
+   
+    string = re.sub(<span style="color:#0ff;font-weight:bold">r</span><span style="color:#0ff;font-weight:bold">&#39;(\&#34;)&#39;</span>, <span style="color:#0ff;font-weight:bold">&#39;&#39;</span>, string)
+    string = re.sub(<span style="color:#0ff;font-weight:bold">r</span><span style="color:#0ff;font-weight:bold">&#39;(\r)&#39;</span>, <span style="color:#0ff;font-weight:bold">&#39;&#39;</span>, string)
+    string = re.sub(<span style="color:#0ff;font-weight:bold">r</span><span style="color:#0ff;font-weight:bold">&#39;(\n)&#39;</span>, <span style="color:#0ff;font-weight:bold">&#39;&#39;</span>, string)
+    string = re.sub(<span style="color:#0ff;font-weight:bold">r</span><span style="color:#0ff;font-weight:bold">&#39;(\r\n)&#39;</span>,<span style="color:#0ff;font-weight:bold">&#39;&#39;</span>, string)
+    string = re.sub(<span style="color:#0ff;font-weight:bold">r</span><span style="color:#0ff;font-weight:bold">&#39;(</span><span style="color:#0ff;font-weight:bold">\\</span><span style="color:#0ff;font-weight:bold">)&#39;</span>, <span style="color:#0ff;font-weight:bold">&#39;&#39;</span>, string)
+    string = re.sub(<span style="color:#0ff;font-weight:bold">r</span><span style="color:#0ff;font-weight:bold">&#39;\t&#39;</span>, <span style="color:#0ff;font-weight:bold">&#39;&#39;</span>, string)
+    string = re.sub(<span style="color:#0ff;font-weight:bold">r</span><span style="color:#0ff;font-weight:bold">&#39;\:&#39;</span>, <span style="color:#0ff;font-weight:bold">&#39;&#39;</span>, string)
+    string = re.sub(<span style="color:#0ff;font-weight:bold">r</span><span style="color:#0ff;font-weight:bold">&#39;\&#34;\&#34;\&#34;\&#34;&#39;</span>, <span style="color:#0ff;font-weight:bold">&#39;&#39;</span>, string)
+    string = re.sub(<span style="color:#0ff;font-weight:bold">r</span><span style="color:#0ff;font-weight:bold">&#39;_&#39;</span>, <span style="color:#0ff;font-weight:bold">&#39;&#39;</span>, string)
+    string = re.sub(<span style="color:#0ff;font-weight:bold">r</span><span style="color:#0ff;font-weight:bold">&#39;\+&#39;</span>, <span style="color:#0ff;font-weight:bold">&#39;&#39;</span>, string)
+    string = re.sub(<span style="color:#0ff;font-weight:bold">r</span><span style="color:#0ff;font-weight:bold">&#39;\=&#39;</span>, <span style="color:#0ff;font-weight:bold">&#39;&#39;</span>, string)
+    string = re.sub(<span style="color:#0ff;font-weight:bold">r</span><span style="color:#0ff;font-weight:bold">&#39;\r\n&#39;</span>, <span style="color:#0ff;font-weight:bold">&#39;&#39;</span>, string)
+    string = re.sub(<span style="color:#0ff;font-weight:bold">r</span><span style="color:#0ff;font-weight:bold">&#39;\r\n\r\n&#39;</span>, <span style="color:#0ff;font-weight:bold">&#39;&#39;</span>, string)
+    string = re.sub(<span style="color:#0ff;font-weight:bold">r</span><span style="color:#0ff;font-weight:bold">&#39;rnrn&#39;</span>, <span style="color:#0ff;font-weight:bold">&#39;&#39;</span>, string)    
+
+    <span style="color:#fff;font-weight:bold">return</span> string
+
+<span style="color:#fff;font-weight:bold">def</span> remove_accented_chars(text):
+    text = unicodedata.normalize(<span style="color:#0ff;font-weight:bold">&#39;NFKD&#39;</span>, text).encode(<span style="color:#0ff;font-weight:bold">&#39;ascii&#39;</span>, <span style="color:#0ff;font-weight:bold">&#39;ignore&#39;</span>).decode(<span style="color:#0ff;font-weight:bold">&#39;utf-8&#39;</span>, <span style="color:#0ff;font-weight:bold">&#39;ignore&#39;</span>)
+    <span style="color:#fff;font-weight:bold">return</span> text
+
+<span style="color:#fff;font-weight:bold">def</span> expand_contractions(text, contraction_mapping=CONTRACTION_MAP):
+    <span style="color:#0ff;font-weight:bold">&#39;&#39;&#39;
+</span><span style="color:#0ff;font-weight:bold">    CONTRACTION_MAP is based on https://github.com/dipanjanS/practical-machine-learning-with-python/blob/master/bonus</span><span style="color:#0ff;font-weight:bold">%20c</span><span style="color:#0ff;font-weight:bold">ontent/nlp%20proven%20approach/contractions.py
+</span><span style="color:#0ff;font-weight:bold">    &#39;&#39;&#39;</span>
+    contractions_pattern = re.compile(<span style="color:#0ff;font-weight:bold">&#39;({})&#39;</span>.format(<span style="color:#0ff;font-weight:bold">&#39;|&#39;</span>.join(contraction_mapping.keys())), 
+                                      flags=re.IGNORECASE|re.DOTALL)
+    <span style="color:#fff;font-weight:bold">def</span> expand_match(contraction):
+        match = contraction.group(<span style="color:#ff0;font-weight:bold">0</span>)
+        first_char = match[<span style="color:#ff0;font-weight:bold">0</span>]
+        expanded_contraction = contraction_mapping.get(match)\
+                                <span style="color:#fff;font-weight:bold">if</span> contraction_mapping.get(match)\
+                                <span style="color:#fff;font-weight:bold">else</span> contraction_mapping.get(match.lower())                       
+        expanded_contraction = first_char+expanded_contraction[<span style="color:#ff0;font-weight:bold">1</span>:]
+        <span style="color:#fff;font-weight:bold">return</span> expanded_contraction
+        
+    expanded_text = contractions_pattern.sub(expand_match, text)
+    expanded_text = re.sub(<span style="color:#0ff;font-weight:bold">&#34;&#39;&#34;</span>, <span style="color:#0ff;font-weight:bold">&#34;&#34;</span>, expanded_text)
+    <span style="color:#fff;font-weight:bold">return</span> expanded_text
+
+<span style="color:#fff;font-weight:bold">def</span> remove_special_characters(text, remove_digits=True):
+    pattern = <span style="color:#0ff;font-weight:bold">r</span><span style="color:#0ff;font-weight:bold">&#39;[^a-zA-z0-9\s]&#39;</span> <span style="color:#fff;font-weight:bold">if</span> not remove_digits <span style="color:#fff;font-weight:bold">else</span> <span style="color:#0ff;font-weight:bold">r</span><span style="color:#0ff;font-weight:bold">&#39;[^a-zA-z\s]&#39;</span>
+    <span style="color:#fff;font-weight:bold">return</span> re.sub(pattern, <span style="color:#0ff;font-weight:bold">&#39; &#39;</span>, text)
+
+<span style="color:#fff;font-weight:bold">def</span> simple_stemmer(text):
+    ps = nltk.porter.PorterStemmer()
+    <span style="color:#fff;font-weight:bold">return</span> <span style="color:#0ff;font-weight:bold">&#39; &#39;</span>.join([ps.stem(word) <span style="color:#fff;font-weight:bold">for</span> word in text.split()])
+
+<span style="color:#fff;font-weight:bold">def</span> simple_lemmatizer(text):
+    lm = nltk.stem.WordNetLemmatizer()
+    <span style="color:#fff;font-weight:bold">return</span> <span style="color:#0ff;font-weight:bold">&#39; &#39;</span>.join([lm.lemmatize(word) <span style="color:#fff;font-weight:bold">for</span> word in text.split()])
+
+<span style="color:#007f7f"># nlp = spacy.load(&#34;en_core_web_sm&#34;)</span>
+<span style="color:#007f7f"># pos_list = [&#39;PRON&#39;,&#39;ADJ&#39;,&#39;NOUN&#39;,&#39;VERB&#39;,&#39;ADV&#39;,&#39;PROPN&#39;]</span>
+
+<span style="color:#007f7f"># def pos_tag_count(text):</span>
+<span style="color:#007f7f">#     c = Counter(([token.pos_ for token in nlp(text)]))</span>
+<span style="color:#007f7f">#     pos_dict = {k: v for k, v in dict(c).items() if k in pos_list}</span>
+<span style="color:#007f7f">#     return pos_dict</span>
+</code></pre></div><div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#fff;font-weight:bold">def</span> text_processing(text, text_cleaner_flg=True,remove_accented_chars_flg=True,
+                    expand_contractions_flg=True, remove_special_characters_flg=True,
+                   simple_stemmer_flg=True, simple_lemmatizer_flg=False ):
+    <span style="color:#fff;font-weight:bold">if</span> text_cleaner_flg:
+        text = text_cleaner(text)
+    <span style="color:#fff;font-weight:bold">if</span> remove_accented_chars_flg:
+        text = remove_accented_chars(text)
+    <span style="color:#fff;font-weight:bold">if</span> expand_contractions_flg:
+        text = expand_contractions(text)
+    <span style="color:#fff;font-weight:bold">if</span> remove_special_characters_flg:
+        text = remove_special_characters(text)
+    <span style="color:#fff;font-weight:bold">if</span> simple_stemmer_flg:
+        text = simple_stemmer(text)
+    <span style="color:#fff;font-weight:bold">if</span> simple_lemmatizer_flg:
+        text = simple_lemmatizer(text)
+    <span style="color:#fff;font-weight:bold">return</span> text
+        
+</code></pre></div><p>I found that lemmatization and POS tagging features didn&rsquo;t help with the accuracy of the classifier so I commented out those sections to keep the whole process leaner.</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">reviews[<span style="color:#0ff;font-weight:bold">&#39;text&#39;</span>]=reviews[<span style="color:#0ff;font-weight:bold">&#39;text&#39;</span>].apply(text_processing)
+</code></pre></div><div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#007f7f">#POS tagging features</span>
+<span style="color:#007f7f"># pos_series = reviews[&#39;text&#39;].apply(pos_tag_count)</span>
+<span style="color:#007f7f"># pos_df = pd.DataFrame(pos_series.tolist(), index=pos_series.index)</span>
+<span style="color:#007f7f"># reviews = reviews.join(pos_df)</span>
+
+<span style="color:#007f7f">#filling missing values from pos tagging</span>
+<span style="color:#007f7f">#reviews.fillna(0,inplace=True)</span>
+</code></pre></div><div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#007f7f">#train_x, valid_x, train_y, valid_y = model_selection.train_test_split(reviews[[&#39;text&#39;]+pos_list], reviews[&#39;label&#39;])</span>
+train_x, valid_x, train_y, valid_y = model_selection.train_test_split(reviews[<span style="color:#0ff;font-weight:bold">&#39;text&#39;</span>], reviews[<span style="color:#0ff;font-weight:bold">&#39;label&#39;</span>],test_size=<span style="color:#ff0;font-weight:bold">0.2</span>,random_state=<span style="color:#ff0;font-weight:bold">0</span>)
+</code></pre></div><div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">encoder = preprocessing.LabelEncoder()
+train_y = encoder.fit_transform(train_y)
+valid_y = encoder.fit_transform(valid_y)
+</code></pre></div><div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">name_mapping = <span style="color:#fff;font-weight:bold">dict</span>(<span style="color:#fff;font-weight:bold">zip</span>(encoder.classes_, encoder.transform(encoder.classes_)))
+</code></pre></div><div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#fff;font-weight:bold">from</span> sklearn.preprocessing <span style="color:#fff;font-weight:bold">import</span> StandardScaler
+<span style="color:#fff;font-weight:bold">from</span> sklearn.compose <span style="color:#fff;font-weight:bold">import</span> make_column_transformer
+<span style="color:#fff;font-weight:bold">from</span> sklearn.pipeline <span style="color:#fff;font-weight:bold">import</span> make_pipeline
+</code></pre></div><div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#007f7f">#numerical_features = train_x.dtypes == &#39;float&#39;</span>
+
+<span style="color:#007f7f"># features = make_column_transformer(</span>
+<span style="color:#007f7f">#     (StandardScaler(), numerical_features ),</span>
+<span style="color:#007f7f">#     (make_pipeline(CountVectorizer(), TfidfTransformer()),&#39;text&#39;)   </span>
+<span style="color:#007f7f"># )</span>
+
+features = make_pipeline(CountVectorizer(), TfidfTransformer())
+</code></pre></div><p>I highly recommend the use of Scikit-Learn Pipelines. The resulting code is very clean and allows for very easy experimentation/tunning with Grid Search and Cross-Validation. Now I try 4 different classifiers to explore possibilities</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#007f7f">## Random Forest</span>
+text_clf = make_pipeline(features, RandomForestClassifier(random_state=<span style="color:#ff0;font-weight:bold">2020</span>))
+text_clf = text_clf.fit(train_x, train_y)
+
+predicted = text_clf.predict(valid_x)
+<span style="color:#fff;font-weight:bold">print</span>(<span style="color:#0ff;font-weight:bold">&#39;Accuracy: &#39;</span>,np.mean(predicted == valid_y))
+</code></pre></div><pre><code>Accuracy:  0.8404255319148937
+</code></pre>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#007f7f">#SVM</span>
+text_clf_sgd = make_pipeline(features, SGDClassifier(loss=<span style="color:#0ff;font-weight:bold">&#39;hinge&#39;</span>, penalty=<span style="color:#0ff;font-weight:bold">&#39;l2&#39;</span>, 
+                                                alpha=<span style="color:#ff0;font-weight:bold">1e-3</span>, random_state=<span style="color:#ff0;font-weight:bold">2020</span>))
+
+_ = text_clf_sgd.fit(train_x, train_y)
+predicted_sgd = text_clf_sgd.predict(valid_x)
+<span style="color:#fff;font-weight:bold">print</span>(<span style="color:#0ff;font-weight:bold">&#39;Accuracy: &#39;</span>,np.mean(predicted_sgd == valid_y))
+</code></pre></div><pre><code>Accuracy:  0.8297872340425532
+</code></pre>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#007f7f">#Naive Bayes</span>
+<span style="color:#fff;font-weight:bold">from</span> sklearn.naive_bayes <span style="color:#fff;font-weight:bold">import</span> MultinomialNB
+
+text_clf_nb = make_pipeline(features, MultinomialNB())
+
+_ = text_clf_nb.fit(train_x, train_y)
+predicted_nb = text_clf_nb.predict(valid_x)
+<span style="color:#fff;font-weight:bold">print</span>(<span style="color:#0ff;font-weight:bold">&#39;Accuracy: &#39;</span>,np.mean(predicted_nb == valid_y) )
+</code></pre></div><pre><code>Accuracy:  0.6702127659574468
+</code></pre>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#007f7f">#Logistic Regression</span>
+text_clf_log = make_pipeline(features, SGDClassifier(loss=<span style="color:#0ff;font-weight:bold">&#39;log&#39;</span>, random_state=<span style="color:#ff0;font-weight:bold">2020</span>))
+
+_ = text_clf_log.fit(train_x, train_y)
+predicted_log = text_clf_log.predict(valid_x)
+<span style="color:#fff;font-weight:bold">print</span>(<span style="color:#0ff;font-weight:bold">&#39;Accuracy: &#39;</span>, np.mean(predicted_log == valid_y))
+</code></pre></div><pre><code>Accuracy:  0.8191489361702128
+</code></pre>
+<p>Since Random Forest and the SGD classifier are pretty close, I&rsquo;ll perform hyperparameter tunning on them.</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">text_clf.get_params().keys()
+</code></pre></div><pre><code>dict_keys(['memory', 'steps', 'verbose', 'pipeline', 'randomforestclassifier', 'pipeline__memory', 'pipeline__steps', 'pipeline__verbose', 'pipeline__countvectorizer', 'pipeline__tfidftransformer', 'pipeline__countvectorizer__analyzer', 'pipeline__countvectorizer__binary', 'pipeline__countvectorizer__decode_error', 'pipeline__countvectorizer__dtype', 'pipeline__countvectorizer__encoding', 'pipeline__countvectorizer__input', 'pipeline__countvectorizer__lowercase', 'pipeline__countvectorizer__max_df', 'pipeline__countvectorizer__max_features', 'pipeline__countvectorizer__min_df', 'pipeline__countvectorizer__ngram_range', 'pipeline__countvectorizer__preprocessor', 'pipeline__countvectorizer__stop_words', 'pipeline__countvectorizer__strip_accents', 'pipeline__countvectorizer__token_pattern', 'pipeline__countvectorizer__tokenizer', 'pipeline__countvectorizer__vocabulary', 'pipeline__tfidftransformer__norm', 'pipeline__tfidftransformer__smooth_idf', 'pipeline__tfidftransformer__sublinear_tf', 'pipeline__tfidftransformer__use_idf', 'randomforestclassifier__bootstrap', 'randomforestclassifier__ccp_alpha', 'randomforestclassifier__class_weight', 'randomforestclassifier__criterion', 'randomforestclassifier__max_depth', 'randomforestclassifier__max_features', 'randomforestclassifier__max_leaf_nodes', 'randomforestclassifier__max_samples', 'randomforestclassifier__min_impurity_decrease', 'randomforestclassifier__min_impurity_split', 'randomforestclassifier__min_samples_leaf', 'randomforestclassifier__min_samples_split', 'randomforestclassifier__min_weight_fraction_leaf', 'randomforestclassifier__n_estimators', 'randomforestclassifier__n_jobs', 'randomforestclassifier__oob_score', 'randomforestclassifier__random_state', 'randomforestclassifier__verbose', 'randomforestclassifier__warm_start'])
+</code></pre>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#007f7f">#hide-output</span>
+<span style="color:#fff;font-weight:bold">from</span> sklearn.model_selection <span style="color:#fff;font-weight:bold">import</span> GridSearchCV
+
+hyperparameters = {
+                    <span style="color:#0ff;font-weight:bold">&#39;pipeline__countvectorizer__stop_words&#39;</span>: [<span style="color:#0ff;font-weight:bold">&#39;english&#39;</span>,None],
+                    <span style="color:#0ff;font-weight:bold">&#39;pipeline__countvectorizer__ngram_range&#39;</span>: [(<span style="color:#ff0;font-weight:bold">1</span>,<span style="color:#ff0;font-weight:bold">1</span>), (<span style="color:#ff0;font-weight:bold">1</span>,<span style="color:#ff0;font-weight:bold">2</span>),(<span style="color:#ff0;font-weight:bold">2.2</span>)],
+                   <span style="color:#0ff;font-weight:bold">&#39;randomforestclassifier__max_depth&#39;</span>: [<span style="color:#ff0;font-weight:bold">50</span>, <span style="color:#ff0;font-weight:bold">70</span>],
+                    <span style="color:#0ff;font-weight:bold">&#39;randomforestclassifier__min_samples_leaf&#39;</span>: [<span style="color:#ff0;font-weight:bold">1</span>,<span style="color:#ff0;font-weight:bold">2</span>]
+                  }
+text_clf_gs = GridSearchCV(text_clf, hyperparameters, cv=<span style="color:#ff0;font-weight:bold">5</span>)
+text_clf_gs.fit(train_x, train_y)
+</code></pre></div><div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">text_clf_gs.best_params_
+</code></pre></div><pre><code>{'pipeline__countvectorizer__ngram_range': (1, 1),
+ 'pipeline__countvectorizer__stop_words': 'english',
+ 'randomforestclassifier__max_depth': 70,
+ 'randomforestclassifier__min_samples_leaf': 1}
+</code></pre>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#007f7f">#refitting on entire training data using best settings</span>
+
+text_clf_gs.refit
+preds_after_cv = text_clf_gs.best_estimator_.predict(valid_x)
+np.mean(preds_after_cv == valid_y)
+</code></pre></div><pre><code>0.8723404255319149
+</code></pre>
+<p>RF with a jump from 84% accuracy to 87%. Now SGD.</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">text_clf_sgd.get_params().keys()
+</code></pre></div><pre><code>dict_keys(['memory', 'steps', 'verbose', 'pipeline', 'sgdclassifier', 'pipeline__memory', 'pipeline__steps', 'pipeline__verbose', 'pipeline__countvectorizer', 'pipeline__tfidftransformer', 'pipeline__countvectorizer__analyzer', 'pipeline__countvectorizer__binary', 'pipeline__countvectorizer__decode_error', 'pipeline__countvectorizer__dtype', 'pipeline__countvectorizer__encoding', 'pipeline__countvectorizer__input', 'pipeline__countvectorizer__lowercase', 'pipeline__countvectorizer__max_df', 'pipeline__countvectorizer__max_features', 'pipeline__countvectorizer__min_df', 'pipeline__countvectorizer__ngram_range', 'pipeline__countvectorizer__preprocessor', 'pipeline__countvectorizer__stop_words', 'pipeline__countvectorizer__strip_accents', 'pipeline__countvectorizer__token_pattern', 'pipeline__countvectorizer__tokenizer', 'pipeline__countvectorizer__vocabulary', 'pipeline__tfidftransformer__norm', 'pipeline__tfidftransformer__smooth_idf', 'pipeline__tfidftransformer__sublinear_tf', 'pipeline__tfidftransformer__use_idf', 'sgdclassifier__alpha', 'sgdclassifier__average', 'sgdclassifier__class_weight', 'sgdclassifier__early_stopping', 'sgdclassifier__epsilon', 'sgdclassifier__eta0', 'sgdclassifier__fit_intercept', 'sgdclassifier__l1_ratio', 'sgdclassifier__learning_rate', 'sgdclassifier__loss', 'sgdclassifier__max_iter', 'sgdclassifier__n_iter_no_change', 'sgdclassifier__n_jobs', 'sgdclassifier__penalty', 'sgdclassifier__power_t', 'sgdclassifier__random_state', 'sgdclassifier__shuffle', 'sgdclassifier__tol', 'sgdclassifier__validation_fraction', 'sgdclassifier__verbose', 'sgdclassifier__warm_start'])
+</code></pre>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#007f7f">#hide_output</span>
+hyperparameters_svm = { <span style="color:#0ff;font-weight:bold">&#39;pipeline__countvectorizer__max_df&#39;</span>: [<span style="color:#ff0;font-weight:bold">0.9</span>, <span style="color:#ff0;font-weight:bold">0.95</span>],
+                    <span style="color:#0ff;font-weight:bold">&#39;pipeline__countvectorizer__ngram_range&#39;</span>: [(<span style="color:#ff0;font-weight:bold">1</span>,<span style="color:#ff0;font-weight:bold">1</span>), (<span style="color:#ff0;font-weight:bold">1</span>,<span style="color:#ff0;font-weight:bold">2</span>),(<span style="color:#ff0;font-weight:bold">2.2</span>)],
+                       <span style="color:#0ff;font-weight:bold">&#39;pipeline__countvectorizer__stop_words&#39;</span>: [<span style="color:#0ff;font-weight:bold">&#39;english&#39;</span>,None],
+                   <span style="color:#0ff;font-weight:bold">&#39;sgdclassifier__alpha&#39;</span>: [<span style="color:#ff0;font-weight:bold">0.001</span>, <span style="color:#ff0;font-weight:bold">0.003</span>,<span style="color:#ff0;font-weight:bold">0.005</span>],
+                    <span style="color:#0ff;font-weight:bold">&#39;sgdclassifier__loss&#39;</span>: [<span style="color:#0ff;font-weight:bold">&#39;hinge&#39;</span>,<span style="color:#0ff;font-weight:bold">&#39;log&#39;</span>],
+                       <span style="color:#0ff;font-weight:bold">&#39;sgdclassifier__penalty&#39;</span>:[<span style="color:#0ff;font-weight:bold">&#39;l1&#39;</span>,<span style="color:#0ff;font-weight:bold">&#39;l2&#39;</span>,<span style="color:#0ff;font-weight:bold">&#39;elasticnet&#39;</span>]
+
+                  }
+text_clf_sgd_cv = GridSearchCV(text_clf_sgd, hyperparameters_svm, cv=<span style="color:#ff0;font-weight:bold">5</span>)
+text_clf_sgd_cv.fit(train_x, train_y)
+</code></pre></div><div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">text_clf_sgd_cv.best_params_
+</code></pre></div><pre><code>{'pipeline__countvectorizer__max_df': 0.9,
+ 'pipeline__countvectorizer__ngram_range': (1, 2),
+ 'pipeline__countvectorizer__stop_words': None,
+ 'sgdclassifier__alpha': 0.001,
+ 'sgdclassifier__loss': 'log',
+ 'sgdclassifier__penalty': 'l1'}
+</code></pre>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">text_clf_sgd_cv.refit
+preds_after_cv_sgd = text_clf_sgd_cv.best_estimator_.predict(valid_x)
+np.mean(preds_after_cv_sgd == valid_y)
+</code></pre></div><pre><code>0.8723404255319149
+</code></pre>
+<p>Logistic regression matching Random Forest on Accuracy, now lets explore the quality of the predictions.</p>
+<h4 id="model-selection">Model Selection</h4>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#fff;font-weight:bold">def</span> plot_c_matrix(models, valid_x, valid_y, label_mapping):
+    <span style="color:#fff;font-weight:bold">for</span> model in models:
+        disp = plot_confusion_matrix(model, valid_x, valid_y,
+                                 display_labels=label_mapping,
+                                 cmap=plt.cm.Blues)
+        title = <span style="color:#fff;font-weight:bold">list</span>(model.named_steps)[<span style="color:#ff0;font-weight:bold">1</span>]
+        disp.ax_.set_title(title)
+        plt.show()    
+</code></pre></div><div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#fff;font-weight:bold">print</span>(<span style="color:#0ff;font-weight:bold">&#39;RF Validation Accuracy: &#39;</span>,np.mean(preds_after_cv == valid_y))
+<span style="color:#fff;font-weight:bold">print</span>(<span style="color:#0ff;font-weight:bold">&#39;RF F1 Score: &#39;</span>, f1_score(valid_y, preds_after_cv))
+<span style="color:#fff;font-weight:bold">print</span>(<span style="color:#0ff;font-weight:bold">&#39;SGD Validation Accuracy: &#39;</span>,np.mean(preds_after_cv_sgd == valid_y) )
+<span style="color:#fff;font-weight:bold">print</span>(<span style="color:#0ff;font-weight:bold">&#39;SGD F1 Score:&#39;</span>, f1_score(valid_y, preds_after_cv_sgd))
+plot_c_matrix([text_clf_gs.best_estimator_,text_clf_sgd_cv.best_estimator_], valid_x, valid_y, name_mapping)
+</code></pre></div><pre><code>RF Validation Accuracy:  0.8723404255319149
+RF F1 Score:  0.7857142857142856
+SGD Validation Accuracy:  0.8723404255319149
+SGD F1 Score: 0.7931034482758621
+</code></pre>
+<p><img src="https://www.matiascortes.com/images/Rubber_Review_Classifier_files/output_50_1.png" alt="png"></p>
+<p><img src="https://www.matiascortes.com/images/Rubber_Review_Classifier_files/output_50_2.png" alt="png"></p>
+<p>Both classifiers perform almost the same, with SGD having a better a F1 Score. Clearly the small test set is making it hard to see more clear differences.</p>
+<h4 id="roc-curve">ROC Curve</h4>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#fff;font-weight:bold">def</span> plot_roc(models, valid_x, valid_y):
+    ns_probs = [<span style="color:#ff0;font-weight:bold">0</span> <span style="color:#fff;font-weight:bold">for</span> _ in <span style="color:#fff;font-weight:bold">range</span>(<span style="color:#fff;font-weight:bold">len</span>(valid_y))]
+    ns_auc = roc_auc_score(valid_y, ns_probs)
+    <span style="color:#fff;font-weight:bold">for</span> model in models:
+        <span style="color:#fff;font-weight:bold">try</span>:
+            <span style="color:#007f7f"># predict probabilities</span>
+            lr_probs = model.predict_proba(valid_x)
+            <span style="color:#007f7f"># keep probabilities for the positive outcome only</span>
+            lr_probs = lr_probs[:, <span style="color:#ff0;font-weight:bold">1</span>]
+            lr_auc = roc_auc_score(valid_y, lr_probs)
+            ns_fpr, ns_tpr, _ = roc_curve(valid_y, ns_probs)
+            lr_fpr, lr_tpr, _ = roc_curve(valid_y, lr_probs)
+            model_name = <span style="color:#fff;font-weight:bold">list</span>(model.named_steps)[<span style="color:#ff0;font-weight:bold">1</span>]
+            <span style="color:#fff;font-weight:bold">print</span>(model_name,<span style="color:#0ff;font-weight:bold">&#39;: ROC AUC=</span><span style="color:#0ff;font-weight:bold">%.3f</span><span style="color:#0ff;font-weight:bold">&#39;</span> % (lr_auc))
+            <span style="color:#007f7f"># plot the roc curve for the model</span>
+            plt.plot(lr_fpr, lr_tpr, label=model_name)
+        <span style="color:#fff;font-weight:bold">except</span> AttributeError: <span style="color:#007f7f"># Error Handling for models that do not have probability prediction like svm</span>
+            <span style="color:#fff;font-weight:bold">continue</span>
+    
+    plt.plot(ns_fpr, ns_tpr, linestyle=<span style="color:#0ff;font-weight:bold">&#39;--&#39;</span>, label=<span style="color:#0ff;font-weight:bold">&#39;No Model&#39;</span>)
+    <span style="color:#007f7f"># axis labels</span>
+    plt.xlabel(<span style="color:#0ff;font-weight:bold">&#39;False Positive Rate&#39;</span>)
+    plt.ylabel(<span style="color:#0ff;font-weight:bold">&#39;True Positive Rate&#39;</span>)
+    <span style="color:#007f7f"># show the legend</span>
+    plt.legend()
+    <span style="color:#007f7f"># show the plot</span>
+    plt.show()       
+
+</code></pre></div><div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">plot_roc([text_clf_gs.best_estimator_,text_clf_sgd_cv.best_estimator_], valid_x, valid_y)
+</code></pre></div><pre><code>randomforestclassifier : ROC AUC=0.915
+sgdclassifier : ROC AUC=0.957
+</code></pre>
+<p><img src="https://www.matiascortes.com/images/Rubber_Review_Classifier_files/output_54_1.png" alt="png"></p>
+<p>Comparing both curves SGD give us a better AUC score, which we can use to compare the quality of both classifiers. We get more predicting power with lower false alarm rate for several thresholds. We choose SGD as our to go classifier</p>
+<h4 id="exploring-important-features">Exploring Important Features</h4>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">feature_names_sgd = np.array(text_clf_sgd_cv.best_estimator_.named_steps.pipeline.named_steps.countvectorizer.get_feature_names())
+sgd_feature_importances = np.abs(text_clf_sgd_cv.best_estimator_.named_steps.sgdclassifier.coef_[<span style="color:#ff0;font-weight:bold">0</span>])
+sgd_idx = np.argsort(sgd_feature_importances)
+</code></pre></div><div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">y_ticks = np.arange(<span style="color:#ff0;font-weight:bold">0</span>, <span style="color:#fff;font-weight:bold">len</span>(feature_names_sgd[sgd_idx][-<span style="color:#ff0;font-weight:bold">15</span>:]))
+fig, ax = plt.subplots()
+ax.barh(y_ticks, sgd_feature_importances[sgd_idx][-<span style="color:#ff0;font-weight:bold">15</span>:])
+ax.set_yticklabels(feature_names_sgd[sgd_idx][-<span style="color:#ff0;font-weight:bold">15</span>:])
+ax.set_yticks(y_ticks)
+ax.set_title(<span style="color:#0ff;font-weight:bold">&#34;SGD Feature Importances&#34;</span>)
+fig.tight_layout()
+plt.show()
+</code></pre></div><p><img src="https://www.matiascortes.com/images/Rubber_Review_Classifier_files/output_58_0.png" alt="png"></p>
+<p>We can see here that the most important features for our classifier make total sense for our problem, with a nice surprice with &ldquo;block&rdquo; for example, word that is often associated with backhands on table tennis.</p>
+<h4 id="exploring-important-features-rf">Exploring important features RF</h4>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">feature_names = text_clf_gs.best_estimator_.named_steps.pipeline.named_steps.countvectorizer.get_feature_names()
+feature_names = np.r_[feature_names]
+tree_feature_importances = text_clf_gs.best_estimator_.named_steps.randomforestclassifier.feature_importances_
+sorted_idx = tree_feature_importances.argsort()
+</code></pre></div><div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#007f7f">#Plotting top 10 features</span>
+y_ticks = np.arange(<span style="color:#ff0;font-weight:bold">0</span>, <span style="color:#fff;font-weight:bold">len</span>(feature_names[-<span style="color:#ff0;font-weight:bold">15</span>:]))
+fig, ax = plt.subplots()
+ax.barh(y_ticks, tree_feature_importances[sorted_idx][-<span style="color:#ff0;font-weight:bold">15</span>:])
+ax.set_yticklabels(feature_names[sorted_idx][-<span style="color:#ff0;font-weight:bold">15</span>:])
+ax.set_yticks(y_ticks)
+ax.set_title(<span style="color:#0ff;font-weight:bold">&#34;Random Forest Feature Importances (MDI)&#34;</span>)
+fig.tight_layout()
+plt.show()
+</code></pre></div><p><img src="https://www.matiascortes.com/images/Rubber_Review_Classifier_files/output_62_0.png" alt="png"></p>
+<h3 id="using-model-to-label-data">Using model to label data</h3>
+<p>With our classifier ready, we can use it ot label data and explore the results.</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">best_model = text_clf_sgd_cv.best_estimator_
+</code></pre></div><div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#fff;font-weight:bold">def</span> inference_review(model, text):
+    <span style="color:#0ff;font-weight:bold">&#39;&#39;&#39;
+</span><span style="color:#0ff;font-weight:bold">    Returns a prediction given an estimator and a text
+</span><span style="color:#0ff;font-weight:bold">    &#39;&#39;&#39;</span>
+    pred = model.predict([text_processing(text)])
+    <span style="color:#fff;font-weight:bold">return</span> encoder.inverse_transform(pred)[<span style="color:#ff0;font-weight:bold">0</span>]
+</code></pre></div><div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">data_4_inference = pd.read_csv(<span style="color:#0ff;font-weight:bold">&#39;bh_fh_rubber_dataset.csv&#39;</span>)
+</code></pre></div><div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#007f7f">#Labeling all null examples, ignoring the ~500 records already labeled</span>
+data_4_inference[<span style="color:#0ff;font-weight:bold">&#39;label&#39;</span>][data_4_inference[<span style="color:#0ff;font-weight:bold">&#39;label&#39;</span>].isna()] = data_4_inference[data_4_inference[<span style="color:#0ff;font-weight:bold">&#39;label&#39;</span>].isna()][<span style="color:#0ff;font-weight:bold">&#39;text&#39;</span>].apply(<span style="color:#fff;font-weight:bold">lambda</span> text: inference_review(best_model, text))
+</code></pre></div><div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">data_4_inference = data_4_inference[data_4_inference[<span style="color:#0ff;font-weight:bold">&#34;label&#34;</span>]!=<span style="color:#0ff;font-weight:bold">&#34;both&#34;</span> ]
+data_4_inference[<span style="color:#0ff;font-weight:bold">&#34;rubber_name&#34;</span>]=data_4_inference[<span style="color:#0ff;font-weight:bold">&#34;full_link&#34;</span>].str.replace(<span style="color:#0ff;font-weight:bold">&#34;https://revspin.net/rubber/&#34;</span>,<span style="color:#0ff;font-weight:bold">&#34;&#34;</span>)
+data_4_inference[<span style="color:#0ff;font-weight:bold">&#34;rubber_name&#34;</span>]=data_4_inference[<span style="color:#0ff;font-weight:bold">&#34;rubber_name&#34;</span>].str.replace(<span style="color:#0ff;font-weight:bold">&#34;.html&#34;</span>,<span style="color:#0ff;font-weight:bold">&#34;&#34;</span>)
+data_4_inference[<span style="color:#0ff;font-weight:bold">&#34;rubber_name&#34;</span>]=data_4_inference[<span style="color:#0ff;font-weight:bold">&#34;rubber_name&#34;</span>].str.replace(<span style="color:#0ff;font-weight:bold">&#34;-&#34;</span>,<span style="color:#0ff;font-weight:bold">&#34; &#34;</span>)
+</code></pre></div><div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">data_4_inference.head()
+</code></pre></div><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+<pre><code>.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}
+</code></pre>
+<p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>full_link</th>
+      <th>text</th>
+      <th>label</th>
+      <th>rubber_name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>https://revspin.net/rubber/61-second-eagle.html</td>
+      <td>This rubber is in my opinion not as slow as in the overall rating !!!!It´s one of the softest and lightest rubber from china !!! Super controlled, very spinny and slightly tacky. Specially the ball acceptance and placement, after the service, is very easy!The sponge hardness should be realistic according to chinese scale, but I think, each rubber, around 2 degree more at the international scale (- the top rubber is medium soft).This wonderful rubber provides enough speed for my backhand (by 2 mm !!!), together with an offensive blade (by a weight of 40 g on my Timo Boll ALC) - ... this time the rubber weighs 56 g (uncut with the protective foil) and 39 g on my blade !!!Even though the sponge can be cut sometimes badly, this rubber is nevertheless very good. What I also like particularly, is that this rubber is available in three sponge hardness (36/38 &amp; 40 degree). This allows every player to find the right partner for his blade !!!!Give me 1,8 mm too and everything would be perfect !!! - here is an additional recommendation !!! To clean the rubber I recommend isopropanol alcohol with about 66 ° percent and for the top rubber a non sticky protective film. ( ... long live, ... - rock´n roll !) ;-P</td>
+      <td>bh</td>
+      <td>61 second eagle</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>https://revspin.net/rubber/61-second-eagle.html</td>
+      <td>I use this in 1.5mm for my backhand and it performs wonderfully.  My sheet is mostly non-tacky, has a soft sponge and topsheet, with medium-large diameter pips.  This combination makes flicking/looping backspin very easy.  Loops, pushes, serves, and chops are all good, but blocking seems a bit inconsistent.  This is likely due to my blocking skill and not the rubber though.  It's a good overall rubber that I use for controlled attacking on the backhand.</td>
+      <td>bh</td>
+      <td>61 second eagle</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>https://revspin.net/rubber/61-second-kangaroo.html</td>
+      <td>I'm using the Black  1.5mm 40ª version. The rubber is quite tacky it won't pick the ball but collects a lot of dust and give you tons of spin. Even in this thicknes is fast, i can't imagine the 2.2 version. It is difficult to glue due to it's heavy dome. it's has a lot of control on serves and chops and also suitable for BH flicks near the table but i wish the topsheet would be softer for more control so i might consider trying the 38ª version. It's a decent all arround rubber, but i wouldn't pay more than 12 dollars for it.</td>
+      <td>bh</td>
+      <td>61 second kangaroo</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>https://revspin.net/rubber/61-second-kangaroo.html</td>
+      <td>Giving a fair honest review. Tested this rubber on a Ma Lin Extra Offensive Blade (5 ply-All Wood). Before using this rubber I was using Palio AK47-Red (FH-45 Degree Hardness) and AK47-Blue (BH-40 Degree Hardness). The Palio AK-47 sponge thickness I played with is 2.5mm. My experience with the AK-47 series is that it was a powerful rubber with almost no time for the ball to sink into the rubber. In short, it was a faster play style that is close to the table. Now with the 61 second series, I played with a 40 degree hardness on the forehand and the sponge is 2.2mm. It was slower than what I was used to, HOWEVER I gained considerable control over the ball. I bought this rubber for $8.35 USD. This is a dust magnet similar to the Hurricane 3 Neo. This rubber is not crazy fast, not too spiny, but its best quality is on control. This rubber is best for players who want to develop their strokes. .It serves well for all around playstyles. Your technique will better reflect on the result; rather than the rubber creating the result for you. This rubber is somewhat forgiving on flat hits. This rubber is good for close to the table and for players who like to hit away from the table. Overall, its a good budget rubber, Its good for beginner and intermediate (Any one under 1400 USTT rating). Anything above intermediate, there is other options that is best suited for experienced players who already know their style of play.</td>
+      <td>fh</td>
+      <td>61 second kangaroo</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>https://revspin.net/rubber/61-second-kangaroo.html</td>
+      <td>I guess I got lucky with my kangaroo sheets compared to the other reviewers here.  Mine are pretty much as advertised by 61 seconds.  They're quite fast and very spinny, so if your shots are more focused on spin, they have good control.  I use these for backhand rubbers and they do great.  They're non-tacky with large pip diameters, which seem to make lifting backspin a bit easier.  The sponge is soft with no catapult effect, so linear control can be expected.  These work well for forehand also, but you really have to focus more on spin rather than speed to get the most out of them.  These are still currently my preferred backhand rubber.  I'm testing out the eagle as well, which seems to be as advertised also.  Perhaps other reviewers are purchasing from a bad vendor?</td>
+      <td>bh</td>
+      <td>61 second kangaroo</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">pivot_t = data_4_inference.pivot_table(index=[<span style="color:#0ff;font-weight:bold">&#39;rubber_name&#39;</span>,<span style="color:#0ff;font-weight:bold">&#39;label&#39;</span>], values=<span style="color:#0ff;font-weight:bold">&#39;text&#39;</span>, aggfunc=<span style="color:#0ff;font-weight:bold">&#39;count&#39;</span>)
+</code></pre></div><div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">total_revs = pivot_t.pivot_table(values=<span style="color:#0ff;font-weight:bold">&#39;text&#39;</span>, index=[<span style="color:#0ff;font-weight:bold">&#39;rubber_name&#39;</span>], aggfunc=np.sum)
+</code></pre></div><div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">pivot_t = pivot_t.join(total_revs, rsuffix=<span style="color:#0ff;font-weight:bold">&#39;_total&#39;</span>)
+</code></pre></div><div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">pivot_t[<span style="color:#0ff;font-weight:bold">&#39;percentage_total&#39;</span>] = pivot_t[<span style="color:#0ff;font-weight:bold">&#39;text&#39;</span>]/pivot_t[<span style="color:#0ff;font-weight:bold">&#39;text_total&#39;</span>]
+</code></pre></div><div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">pivot_t.sort_values(by=<span style="color:#0ff;font-weight:bold">&#39;text_total&#39;</span>, ascending=False ).head(<span style="color:#ff0;font-weight:bold">16</span>)
+</code></pre></div><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+<pre><code>.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}
+</code></pre>
+<p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>text</th>
+      <th>text_total</th>
+      <th>percentage_total</th>
+    </tr>
+    <tr>
+      <th>rubber_name</th>
+      <th>label</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="2" valign="top">dhs neo hurricane 3</th>
+      <th>fh</th>
+      <td>23</td>
+      <td>70</td>
+      <td>0.328571</td>
+    </tr>
+    <tr>
+      <th>bh</th>
+      <td>47</td>
+      <td>70</td>
+      <td>0.671429</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">yasaka rakza 7</th>
+      <th>bh</th>
+      <td>43</td>
+      <td>52</td>
+      <td>0.826923</td>
+    </tr>
+    <tr>
+      <th>fh</th>
+      <td>9</td>
+      <td>52</td>
+      <td>0.173077</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">xiom vega europe</th>
+      <th>fh</th>
+      <td>5</td>
+      <td>47</td>
+      <td>0.106383</td>
+    </tr>
+    <tr>
+      <th>bh</th>
+      <td>42</td>
+      <td>47</td>
+      <td>0.893617</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">butterfly tenergy 05</th>
+      <th>fh</th>
+      <td>16</td>
+      <td>45</td>
+      <td>0.355556</td>
+    </tr>
+    <tr>
+      <th>bh</th>
+      <td>29</td>
+      <td>45</td>
+      <td>0.644444</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">donic baracuda</th>
+      <th>bh</th>
+      <td>29</td>
+      <td>42</td>
+      <td>0.690476</td>
+    </tr>
+    <tr>
+      <th>fh</th>
+      <td>13</td>
+      <td>42</td>
+      <td>0.309524</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">yasaka rakza 7 soft</th>
+      <th>fh</th>
+      <td>7</td>
+      <td>41</td>
+      <td>0.170732</td>
+    </tr>
+    <tr>
+      <th>bh</th>
+      <td>34</td>
+      <td>41</td>
+      <td>0.829268</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">xiom vega pro</th>
+      <th>fh</th>
+      <td>8</td>
+      <td>39</td>
+      <td>0.205128</td>
+    </tr>
+    <tr>
+      <th>bh</th>
+      <td>31</td>
+      <td>39</td>
+      <td>0.794872</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">butterfly tenergy 64</th>
+      <th>bh</th>
+      <td>28</td>
+      <td>37</td>
+      <td>0.756757</td>
+    </tr>
+    <tr>
+      <th>fh</th>
+      <td>9</td>
+      <td>37</td>
+      <td>0.243243</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<p>Here we can explore the different predictions per rubber. Xiom Vega Europe is overwhelmingly used on the backhand for example, as I personally do. I do see a slight bias towards backhand predictions which make sense given that the labeled examples were 60/40 in proportion. Still not bad for ~550 examples.</p>
+<h3 id="conclusion">Conclusion</h3>
+<p>Very fun project to do, specially when you love the sport. We got surprising performance for such little data, my expectations before starting were way lower, I was going to be happy with 60% accuracy and ended up getting almost 90%. Eventually I realized that pre-processing was the key, like normalizing all the variations of backhand/forehand to make it easy for the classifier to pick the right feature, which we confirmed with the feature plot eventually.</p>
+<p>Further improvement would involve more data since I labeled a very small fraction of it. Some Active Learning approach could be used to be efficient about what new examples to label. Ideally we would also aim for a more balanced dataset to avoid any source of bias. We can also combine different models and incorporate some voting system to get the predictions. Finally, this can be extended to a multiclass problem since many rubbers are used on both FH/BH, like the popular Butterfly Tenergy 05.</p>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        
+        
+      </footer>
+    </article>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script type="text/javascript" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/startup.js" id="MathJax-script"></script>
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [
+          ['$', '$'], ['\\(', '\\)']
+        ],
+        processEscapes: true,
+        processEnvironments: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      }
+    };
+  </script>
+  </section>
+
+      </div>
+
+      <footer class="footer">
+  <section class="container">
+    
+      <p>Just show up</p>
+    
+    
+      
+        © 2017 - 2020
+      
+       Matias Cortes 
+    
+    
+       · 
+      Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+    
+    
+  </section>
+</footer>
+
+    </main>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-120795861-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+  </body>
+
+</html>

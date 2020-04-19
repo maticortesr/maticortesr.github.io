@@ -6,10 +6,19 @@
     <description>Recent content on Matias Cortes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 09 Feb 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 19 Apr 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://www.matiascortes.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Analytics on Table Tennis Equipment Part 1: Text Classification</title>
+      <link>https://www.matiascortes.com/posts/table-tennis-equipment-text-classification/</link>
+      <pubDate>Sun, 19 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.matiascortes.com/posts/table-tennis-equipment-text-classification/</guid>
+      <description>Table Tennis gear shopping can be a complex endeavor. When you get to the point of getting a custom racket, combining a blade + 2 Rubbers gives you pretty high number of combinations. For example, a blade can be made of wood or wood+carbon for the most part, with a variety of combinations in terms of ply (usually 5-7) and they are classified as Defensive, Offensive and All around, with many levels in between.</description>
+    </item>
     
     <item>
       <title>Hello</title>
