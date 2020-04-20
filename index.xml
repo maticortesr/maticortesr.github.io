@@ -12,6 +12,16 @@
     
     
     <item>
+      <title>Analytics on Table Tennis Equipment Part 1: Clustering</title>
+      <link>https://www.matiascortes.com/posts/table-tennis-equipment-clustering/</link>
+      <pubDate>Sun, 19 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.matiascortes.com/posts/table-tennis-equipment-clustering/</guid>
+      <description>Analytics on Table Tennis Equipment Part 2: Clustering data = pd.read_csv(&amp;#39;top100 rubbers by overall score.csv&amp;#39;) data.head()  .dataframe tbody tr th:only-of-type { vertical-align: middle; } .dataframe tbody tr th { vertical-align: top; } .dataframe thead th { text-align: right; }  
+  Rubber Speed Spin Control Tacky Weight Sponge Hardness Gears Throw Angle Consis-tency Durable Overall Ratings Est. Price     0 Donic Bluestorm Z1 Turbo 9.</description>
+    </item>
+    
+    <item>
       <title>Analytics on Table Tennis Equipment Part 1: Text Classification</title>
       <link>https://www.matiascortes.com/posts/table-tennis-equipment-text-classification/</link>
       <pubDate>Sun, 19 Apr 2020 00:00:00 +0000</pubDate>
@@ -46,11 +56,9 @@ Tech Stack Development: Python, SQL, R, Java, Unix Scripting (Bash)</description
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://www.matiascortes.com/portfolio/</guid>
-      <description>Abstractive Text Sumarization:  Abstractive text summarization. Used an Encoder-Decoder arquitecture with attention and pre-trained embeddings (GloVe). Beam search used for inference. Rouge scores: Rouge-1, 23.27; Rouge-2, 15.30; Rougue-L: 24.47.
-Skills: Word Embeddinigs, Tensorflow 2, Sequence Modeling
-  Extractive Text Sumarization App:  Extractive text summarization app using TextRank with Gensim. Deployed to heroku with Flask. Link to App: https://simple-text-summarizer.herokuapp.com/.
-Skills: NLP, Flask.
-  DonorChoose.org Application Screenig:  A classification model using text features to predict whether or not a DonorsChoose.</description>
+      <description>Text Classification on Table Tennis Rubbers:  Text Classification with Scikit-Learn. Extracted data with Selenium and hand-labeled examples to build a classifier. AUC: 0.957 and Accuracy: 0.87.
+Skills: Sklearn Pipelines, Text Classification, Text Features, NLTK, Spacy
+  Abstractive Text Sumarization:  Abstractive text summarization. Used an Encoder-Decoder arquitecture with attention and pre-trained embeddings (GloVe). Beam search used for inference. Rouge scores: Rouge-1, 23.27; Rouge-2, 15.30; Rougue-L: 24.47.</description>
     </item>
     
   </channel>

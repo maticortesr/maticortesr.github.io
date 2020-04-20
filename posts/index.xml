@@ -12,6 +12,16 @@
     
     
     <item>
+      <title>Analytics on Table Tennis Equipment Part 1: Clustering</title>
+      <link>https://www.matiascortes.com/posts/table-tennis-equipment-clustering/</link>
+      <pubDate>Sun, 19 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.matiascortes.com/posts/table-tennis-equipment-clustering/</guid>
+      <description>Analytics on Table Tennis Equipment Part 2: Clustering data = pd.read_csv(&amp;#39;top100 rubbers by overall score.csv&amp;#39;) data.head()  .dataframe tbody tr th:only-of-type { vertical-align: middle; } .dataframe tbody tr th { vertical-align: top; } .dataframe thead th { text-align: right; }  
+  Rubber Speed Spin Control Tacky Weight Sponge Hardness Gears Throw Angle Consis-tency Durable Overall Ratings Est. Price     0 Donic Bluestorm Z1 Turbo 9.</description>
+    </item>
+    
+    <item>
       <title>Analytics on Table Tennis Equipment Part 1: Text Classification</title>
       <link>https://www.matiascortes.com/posts/table-tennis-equipment-text-classification/</link>
       <pubDate>Sun, 19 Apr 2020 00:00:00 +0000</pubDate>
