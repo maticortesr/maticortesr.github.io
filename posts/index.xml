@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Matias Cortes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 19 Apr 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 21 May 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://www.matiascortes.com/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Analytics on Table Tennis Equipment Part 2: Recomendation Engine</title>
+      <link>https://www.matiascortes.com/posts/table-tennis-equipment-recomendation/</link>
+      <pubDate>Thu, 21 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.matiascortes.com/posts/table-tennis-equipment-recomendation/</guid>
+      <description>After creating a text classifier on Part 1 of this series of analysis on Table Tennis equipment, there is another aspect of choosing equipment that is tricky: making sense of all the specs of rubbers. Luckily, Revspin.net has user-generated data we can use for this. Characteristics like Speed, Spin, Control, Gears, Tackyness are rated from 1 to 10 for a big number of rubbers. The issue with this is that is very hard to make sense of all those numbers, Revspin does not offer a comparison tool currently, and even if it did, typical 1-to-1 comparison toolsfall short when you want to find similar products.</description>
+    </item>
     
     <item>
       <title>Analytics on Table Tennis Equipment Part 1: Text Classification</title>

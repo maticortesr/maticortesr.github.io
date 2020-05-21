@@ -6,10 +6,19 @@
     <description>Recent content on Matias Cortes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 19 Apr 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 21 May 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://www.matiascortes.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Analytics on Table Tennis Equipment Part 2: Recomendation Engine</title>
+      <link>https://www.matiascortes.com/posts/table-tennis-equipment-recomendation/</link>
+      <pubDate>Thu, 21 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.matiascortes.com/posts/table-tennis-equipment-recomendation/</guid>
+      <description>After creating a text classifier on Part 1 of this series of analysis on Table Tennis equipment, there is another aspect of choosing equipment that is tricky: making sense of all the specs of rubbers. Luckily, Revspin.net has user-generated data we can use for this. Characteristics like Speed, Spin, Control, Gears, Tackyness are rated from 1 to 10 for a big number of rubbers. The issue with this is that is very hard to make sense of all those numbers, Revspin does not offer a comparison tool currently, and even if it did, typical 1-to-1 comparison toolsfall short when you want to find similar products.</description>
+    </item>
     
     <item>
       <title>Analytics on Table Tennis Equipment Part 1: Text Classification</title>
@@ -46,9 +55,10 @@ Tech Stack Development: Python, SQL, R, Java, Unix Scripting (Bash)</description
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://www.matiascortes.com/portfolio/</guid>
-      <description>Text Classification on Table Tennis Rubbers:  Text Classification with Scikit-Learn. Extracted data with Selenium and hand-labeled examples to build a classifier. AUC: 0.957 and Accuracy: 0.87.
-Skills: Sklearn Pipelines, Text Classification, Text Features, NLTK, Spacy
-  Abstractive Text Sumarization:  Abstractive text summarization. Used an Encoder-Decoder arquitecture with attention and pre-trained embeddings (GloVe). Beam search used for inference. Rouge scores: Rouge-1, 23.27; Rouge-2, 15.30; Rougue-L: 24.47.</description>
+      <description>Table Tennis Equipment Recommender:  Distance-based recommender engine for rubbers. Python model built using PCA and KNN, deployed into Flask API. Model API consumed with a React application.
+Skills: Sklearn, Unsupervised Learning, Flask, React.js, React Boostrap, Axios React
+  Text Classification on Table Tennis Rubbers:  Text Classification with Scikit-Learn. Extracted data with Selenium and hand-labeled examples to build a classifier. AUC: 0.957 and Accuracy: 0.87.
+Skills: Sklearn Pipelines, Text Classification, Text Features, NLTK, Spacy</description>
     </item>
     
   </channel>
