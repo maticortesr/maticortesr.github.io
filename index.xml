@@ -6,11 +6,7 @@
     <description>Recent content on Matias Cortes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 21 May 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://www.matiascortes.com/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Thu, 21 May 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://www.matiascortes.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Analytics on Table Tennis Equipment Part 2: Recomendation Engine</title>
       <link>https://www.matiascortes.com/posts/table-tennis-equipment-recomendation/</link>
@@ -44,9 +40,8 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://www.matiascortes.com/about/</guid>
-      <description>I&amp;rsquo;m a Data Scientist living in the Boston area. I have experience in both startups and big companies: first, as a startup founder, then as a Data Analyst for a Big Four US bank, and currently doing Data Science at an energy startup, driving growth and decision-making with data.
-Currently tackling maching learning problems on the NLP arena and expanding my data science toolset.
-Tech Stack Development: Python, SQL, R, Java, Unix Scripting (Bash)</description>
+      <description>I&amp;rsquo;m a Software Developer living in the Boston area. I&amp;rsquo;m a proud generalist with experience in various areas, from being a startup founder and manage software product development; to start my career in Data Science for a Big Four US Bank; and to use my data skills to drive growth and decision-making at an energy efficiency startup.
+Currently working as a Software Developer moving comfortably across the stack. Leveraging AWS, Python, Node.</description>
     </item>
     
     <item>

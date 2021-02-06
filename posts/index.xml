@@ -6,11 +6,7 @@
     <description>Recent content in Posts on Matias Cortes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 21 May 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://www.matiascortes.com/posts/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Thu, 21 May 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://www.matiascortes.com/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Analytics on Table Tennis Equipment Part 2: Recomendation Engine</title>
       <link>https://www.matiascortes.com/posts/table-tennis-equipment-recomendation/</link>

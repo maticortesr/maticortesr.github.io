@@ -5,10 +5,6 @@
     <link>https://www.matiascortes.com/categories/</link>
     <description>Recent content in Categories on Matias Cortes</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
-    
-	<atom:link href="https://www.matiascortes.com/categories/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <language>en</language><atom:link href="https://www.matiascortes.com/categories/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
